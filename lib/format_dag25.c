@@ -27,7 +27,7 @@
 #define _GNU_SOURCE
 #endif
 
-#include "config.h"
+	#include "config.h"
 #include "common.h"
 #include "libtrace.h"
 #include "libtrace_int.h"
