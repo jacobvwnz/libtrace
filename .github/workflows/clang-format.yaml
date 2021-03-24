@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Define variables
-      run: echo "Tags are > ${PUSH_TAG_VERSION}"
+      run: echo "Base_ref -> $BASE"
       env:
         BASE: if [[ ${{ github.event_name }} = 'pull_request' ]]; then 'origin/${{ github.base_ref }}'; else '${{ github.event.before }}'; fi 
     - uses: actions/checkout@v2
@@ -29,8 +29,8 @@ jobs:
       run: wget https://raw.githubusercontent.com/llvm-mirror/clang/master/tools/clang-format/git-clang-format
     - name: Install git-clang-format
       run: sudo install -t /bin git-clang-format
-    - name: Fetch origin $BASE
-      run: git fetch --no-tags --prune --depth=1 origin $BASE
+    - name: Fetch $BASE
+      run: git fetch $BASE
     - name: clang-format
       run: git clang-format $BASE
     - name: diff
