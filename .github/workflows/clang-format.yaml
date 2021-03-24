@@ -29,10 +29,10 @@ jobs:
       run: wget https://raw.githubusercontent.com/llvm-mirror/clang/master/tools/clang-format/git-clang-format
     - name: Install git-clang-format
       run: sudo install -t /bin git-clang-format
-    - name: Fetch $BASE
-      run: git fetch $BASE
+    - name: Fetch ${{ env.BASE }}
+      run: git fetch ${{ env.BASE }}
     - name: clang-format
-      run: git clang-format $BASE
+      run: git clang-format ${{ env.BASE }}
     - name: diff
       run: git diff --exit-code
 #  clang-format-push:
