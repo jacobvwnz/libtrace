@@ -20,7 +20,7 @@ jobs:
     steps:
     - name: Define variables
       run: |
-        echo "BASE=$(if [[ ${{ github.event_name }} = 'pull_request' ]]; then 'origin/${{ github.base_ref }}'; else '${{ github.event.before }}'; fi)" >> $GITHUB_ENV 
+        echo "BASE=$(if [[ ${{ github.event_name }} = 'pull_request' ]]; then echo 'origin/${{ github.base_ref }}'; else echo '${{ github.event.before }}'; fi)" >> $GITHUB_ENV 
     - name: print
       run: echo "${{ env.BASE }}"
     - uses: actions/checkout@v2
