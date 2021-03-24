@@ -15,13 +15,11 @@ jobs:
   clang-format-pull:
     name: Clang Format
     needs: pre_job
-    if: "github.event_name == 'pull_request' && needs.pre_job.outputs.should_skip != 'true'"
+    if: "needs.pre_job.outputs.should_skip != 'true'"
     runs-on: ubuntu-latest
     steps:
     - name: Define variables
-      run: echo "Base_ref -> $BASE"
-      env:
-        BASE: if [[ ${{ github.event_name }} = 'pull_request' ]]; then 'origin/${{ github.base_ref }}'; else '${{ github.event.before }}'; fi 
+      run: "BASE=$(if [[ ${{ github.event_name }} = 'pull_request' ]]; then 'origin/${{ github.base_ref }}'; else '${{ github.event.before }}'; fi) >> $GITHUB_ENV 
     - uses: actions/checkout@v2
     - name: Install clang-format
       run: sudo apt-get install clang-format
